@@ -23,7 +23,7 @@ jobs:
           go-version-file: go.mod
 
       - name: Install dependencies
-        run: just deps-ci
+        run: just deps
 
       - name: Ensure generated files are up to date
         run: |
