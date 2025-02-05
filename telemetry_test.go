@@ -74,7 +74,7 @@ func TestTelemetry_MeterInt64Histogram(t *testing.T) {
 		Enabled:        true,
 	})
 	require.NoError(t, err)
-	defer telem.Shutdown()
+	defer telem.Shutdown(ctx)
 
 	tests := []struct {
 		name    string
@@ -115,7 +115,7 @@ func TestTelemetry_MeterInt64UpDownCounter(t *testing.T) {
 		ServiceVersion: "1.0.0",
 	})
 	require.NoError(t, err)
-	defer telem.Shutdown()
+	defer telem.Shutdown(ctx)
 
 	tests := []struct {
 		name    string

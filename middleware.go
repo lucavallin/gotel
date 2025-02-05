@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	otelmetric "go.opentelemetry.io/otel/metric"
+	"go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/semconv/v1.20.0/httpconv"
 )
 
@@ -39,7 +39,7 @@ func (t *Telemetry) MeterRequestDuration() gin.HandlerFunc {
 		histogram.Record(
 			c.Request.Context(),
 			duration.Milliseconds(),
-			otelmetric.WithAttributes(
+			metric.WithAttributes(
 				httpconv.ServerRequest(t.GetServiceName(), c.Request)...,
 			),
 		)
@@ -56,7 +56,7 @@ func (t *Telemetry) MeterRequestsInFlight() gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 		// define metric attributes
-		attrs := otelmetric.WithAttributes(httpconv.ServerRequest(t.GetServiceName(), c.Request)...)
+		attrs := metric.WithAttributes(httpconv.ServerRequest(t.GetServiceName(), c.Request)...)
 
 		// increase the number of requests in flight
 		counter.Add(c.Request.Context(), 1, attrs)

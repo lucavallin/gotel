@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	otelmetric "go.opentelemetry.io/otel/metric"
-	oteltrace "go.opentelemetry.io/otel/trace"
+	"go.opentelemetry.io/otel/metric"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // NoopTelemetry is a no-op implementation of the TelemetryProvider interface.
@@ -49,17 +49,17 @@ func (t *NoopTelemetry) MeterRequestsInFlight() gin.HandlerFunc {
 }
 
 // TraceStart returns the context and span unchanged.
-func (t *NoopTelemetry) TraceStart(ctx context.Context, name string) (context.Context, oteltrace.Span) {
-	return ctx, oteltrace.SpanFromContext(ctx)
+func (t *NoopTelemetry) TraceStart(ctx context.Context, name string) (context.Context, trace.Span) {
+	return ctx, trace.SpanFromContext(ctx)
 }
 
 // MeterInt64Histogram returns nil.
-func (t *NoopTelemetry) MeterInt64Histogram(metric Metric) (otelmetric.Int64Histogram, error) {
+func (t *NoopTelemetry) MeterInt64Histogram(metric Metric) (metric.Int64Histogram, error) {
 	return nil, nil
 }
 
 // MeterInt64UpDownCounter returns nil.
-func (t *NoopTelemetry) MeterInt64UpDownCounter(metric Metric) (otelmetric.Int64UpDownCounter, error) {
+func (t *NoopTelemetry) MeterInt64UpDownCounter(metric Metric) (metric.Int64UpDownCounter, error) {
 	return nil, nil
 }
 

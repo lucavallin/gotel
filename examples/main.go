@@ -24,7 +24,7 @@ func main() {
 		fmt.Println("failed to create telemetry, falling back to no-op telemetry")
 		telem, _ = gotel.NewNoopTelemetry(telemConfig)
 	}
-	defer telem.Shutdown()
+	defer telem.Shutdown(ctx)
 
 	telem.LogInfo("telemetry initialized")
 }
