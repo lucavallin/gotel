@@ -54,6 +54,17 @@ func main() {
 }
 ```
 
+`gotel` also provides middleware for `gin`, which can be used to instrument your web applications. Here is an example:
+
+```go
+...
+r := gin.New()
+r.Use(telem.LogRequest())
+r.Use(telem.MeterRequestDuration())
+r.Use(telem.MeterRequestsInFlight())
+...
+```
+
 ## Development
 
 The repository contains a `justfile` with useful commands for development. To see the list of available commands, run `just`:
