@@ -19,7 +19,7 @@ func main() {
 
 	// Initialize telemetry. If the exporter fails, fallback to nop.
 	var telem gotel.TelemetryProvider
-	telem, err := gotel.NewTelemetry(ctx, telemConfig)
+	telem, err = gotel.NewTelemetry(ctx, telemConfig)
 	if err != nil {
 		fmt.Println("failed to create telemetry, falling back to no-op telemetry")
 		telem, _ = gotel.NewNoopTelemetry(telemConfig)
