@@ -1,0 +1,35 @@
+run:
+  timeout: 10m
+issues:
+  exclude-dirs:
+    - "mocks"
+  exclude-rules:
+    - path: noop.go
+      linters:
+        - ireturn
+        - nilnil
+    - path: _test\.go
+      linters:
+        - funlen
+        - dupl
+linters:
+  enable-all: true
+  disable: [
+    "paralleltest",
+    "exportloopref",
+    "depguard",
+    "exhaustruct",
+    "forbidigo",
+    "revive",
+    "gochecknoglobals",
+    "gochecknoinits",
+    "gofumpt",
+    "errcheck",
+    "varnamelen",
+    "wsl",
+    "mnd",
+    "lll",
+    "gci",
+    "gomnd",
+    "execinquery",
+  ]

@@ -1,0 +1,14 @@
+filename: "{{.InterfaceName}}.go"
+dir: "mocks/{{.PackageName}}"
+issue-845-fix: True
+packages:
+  go.opentelemetry.io/otel/trace:
+    config:
+      all: true
+      recursive: true
+      with-expecter: true
+  go.opentelemetry.io/otel/metric:
+    config:
+      all: true
+      recursive: true
+      with-expecter: true

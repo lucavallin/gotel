@@ -1,0 +1,44 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: gotel CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: extractions/setup-just@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
+
+      - name: Install dependencies
+        run: just deps-ci
+
+      - name: Ensure generated files are up to date
+        run: |
+          just gen-mocks
+          git diff --exit-code || true
+
+      - name: Lint
+        run: just lint
+
+      - name: Build gotel
+        run: just build
+
+      - name: Test
+        run: just test --json
+
+      - name: Write test coverage report
+        if: success() || failure()
+        run: tparse -all -file=coverage.json -format=markdown | tee coverage.md
