@@ -32,4 +32,5 @@ linters:
     "gci",
     "gomnd",
     "execinquery",
+    "interfacebloat"
   ]
